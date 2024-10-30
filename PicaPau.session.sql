@@ -1,1 +1,4 @@
-ALTER TABLE empregados MODIFY id INT NOT NULL AUTO_INCREMENT;
+
+
+DELETE FROM empregados WHERE id = 7;
+

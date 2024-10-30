@@ -8,3 +8,11 @@ Empresa Pica Pau - SISTEMA DE RH
 
 4) npm install mysql12   
 
+5) instalar pacote que permite iniciar servidor (rodar os html) 
+
+6) npm install -g http-server
+
+7) entrar na pasta onde estao os arquivos html e startar servidor 
+
+8) http-server -p 3000
+
