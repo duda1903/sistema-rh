@@ -1,0 +1,19 @@
+{
+    "sqltools.connections": [
+        {
+            "mysqlOptions": {
+                "authProtocol": "default",
+                "enableSsl": "Disabled"
+            },
+            "previewLimit": 50,
+            "server": "autorack.proxy.rlwy.net",
+            "port": 36215,
+            "driver": "MySQL",
+            "name": "PicaPau",
+            "group": "Empresa Pica Pau",
+            "username": "root",
+            "database": "railway",
+            "askForPassword": true
+        }
+    ]
+}

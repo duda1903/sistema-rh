@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "dependencies": {
     "axios": "^1.7.7",
+    "cors": "^2.8.5",
     "express": "^4.21.1",
     "mysql2": "^3.11.3",
     "react-router-dom": "^6.27.0"
