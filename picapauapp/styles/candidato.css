@@ -1,0 +1,90 @@
+body {
+    background-color: #f5f5dc; /* Existing background color */
+    font-family: Arial, sans-serif;
+    color: #333;
+}
+
+.nav {
+    background-color: #6D3F07; /* Existing navigation background */
+    width: 100%;
+    padding: 10px 0;
+}
+
+.nav-link {
+    color: #FFFDD0; /* Light color for nav links */
+    font-weight: bold;
+    padding: 8px 20px;
+    text-decoration: none;
+}
+
+.nav-link:hover {
+    color: #DAA520; /* Change color on hover */
+}
+
+h2 {
+    text-align: center;
+    margin-top: 30px;
+    color: #6D3F07; /* Header color */
+    font-size: 2rem;
+    font-family: "Bona Nova SC", serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.form-label {
+    color: #6D3F07; /* Label color */
+    font-weight: bold;
+}
+
+input.form-control, select.form-select, textarea.form-control {
+    border: 1px solid #8A9A5B; /* Border color for inputs */
+    border-radius: 4px;
+    padding: 10px; /* Add some padding */
+}
+
+input.form-control:focus, select.form-select:focus, textarea.form-control:focus {
+    border-color: #CC5500; /* Focus border color */
+    box-shadow: 0 0 5px rgba(204, 85, 0, 0.5); /* Shadow on focus */
+}
+
+button {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    background-color: #6D3F07; /* Primary button background */
+    color: #FFFDD0; /* Button text color */
+    text-align: center;
+    width: 100%;
+}
+
+button:hover {
+    opacity: 0.9;
+}
+
+button:first-of-type {
+    margin-right: 5px;
+}
+
+button:last-of-type {
+    background-color: #8b4513; /* Secondary button background */
+    color: #FFFDD0; /* Button text color */
+}
+
+button:first-of-type:hover {
+    background-color: #5a3106; /* Primary button hover */
+}
+
+button:last-of-type:hover {
+    background-color: #6b3a10; /* Secondary button hover */
+}
+
+textarea {
+    background-color: #FFFDD0; /* Background for text areas */
+}
+
+textarea:focus {
+    border-color: #CC5500; /* Focus border color for text areas */
+    box-shadow: 0 0 5px rgba(204, 85, 0, 0.5); /* Shadow on focus */
+}
