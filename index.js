@@ -6,7 +6,15 @@ const pool = require('./db');
 app.use(cors());
 app.use(express.json());
 
-
+app.get('/api/candidatos', async (req, res) => {
+    try {
+        const [rows] = await pool.query('SELECT * FROM candidato');
+        res.status(200).json(rows);
+    } catch (error) {
+        console.error('Erro ao buscar candidatos:', error);
+        res.status(500).send('Erro ao buscar candidatos');
+    }
+});
 app.get('/api/empregados', async (req, res) => {
     try {
         const [rows] = await pool.query('SELECT * FROM empregados');

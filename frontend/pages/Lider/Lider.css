@@ -1,1 +1,88 @@
  
+body {
+    background-color: #f5f5dc;
+    font-family: Arial, sans-serif;
+    color: #333;
+}
+
+.nav {
+    background-color: #6D3F07;
+    width: 100%;
+    padding: 10px 0;
+}
+
+.nav-link {
+    color: white;
+    font-weight: bold;
+    padding: 8px 20px;
+    text-decoration: none;
+}
+
+.nav-link:hover {
+    color: #f5f5dc;
+}
+
+h1 {
+    text-align: center;
+    margin-top: 30px;
+    color: #6D3F07;
+    font-size: 2rem;
+}
+
+#tabelaCandidatos {
+    width: 80%;
+    margin: 20px auto;
+    border-collapse: collapse;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+#tabelaCandidatos th, #tabelaCandidatos td {
+    padding: 12px;
+    text-align: left;
+    border: 1px solid #ddd;
+}
+
+#tabelaCandidatos th {
+    background-color: #8b4513;
+    color: white;
+    font-weight: bold;
+}
+
+#tabelaCandidatos tr:nth-child(even) {
+    background-color: #faf3db;
+}
+
+#tabelaCandidatos tr:hover {
+    background-color: #f4e2cd;
+}
+
+button {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+button:hover {
+    opacity: 0.9;
+}
+
+button:first-of-type {
+    background-color: #6D3F07;
+    color: white;
+    margin-right: 5px;
+}
+
+button:last-of-type {
+    background-color: #8b4513;
+    color: white;
+}
+
+button:first-of-type:hover {
+    background-color: #5a3106;
+}
+
+button:last-of-type:hover {
+    background-color: #6b3a10;
+}

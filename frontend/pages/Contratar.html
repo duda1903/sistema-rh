@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Empresa Pica Pau</title>
+    <link rel="stylesheet" href="Style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
+    <link rel="icon" href="../img/favicon.ico" type="image/x-icon">
+    
+</head>
+<body>
+   
+   <ul class="nav justify-content-center">
+      <li class="nav-item">
+        <a class="nav-link text-white" href="#">Inicio</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link text-white" href="#">Perfil</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link text-white" href="avaliacaoMembro.html">Avaliação</a>
+      </li>
+      <li class="nav-item">
+          <a class="nav-link text-white" href="#">Criar equipes</a>
+      </li>
+      <li class="nav-item">
+          <a class="nav-link text-white" href="addMembros.html">Adicionar membros à equipe</a>
+      </li>
+  </ul>
+
+    <h1>Candidatos para vaga </h1>
+    <table id="tabelaCandidatos">
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Cargo</th>
+                <th>Data de Nascimento</th>
+                <th>Observação</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
+    <script>
+        async function carregarCandidatos() {
+            try {
+                const response = await fetch('http://localhost:3001/api/candidatos');
+                if (!response.ok) throw new Error('Erro ao buscar candidatos');
+                const candidatos = await response.json();
+                const tabelaBody = document.querySelector('#tabelaCandidatos tbody');
+                tabelaBody.innerHTML = '';
+
+                candidatos.forEach(candidato => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = 
+                        <td>${candidato.nome}</td>
+                        <td>${candidato.cargo}</td>
+                        <td>${candidato.data_nascimento}</td>
+                        <td>${candidato.observacao || 'Nenhuma observação disponível'}</td>
+                        <td>
+                            <button onclick="contratar(${candidato.id})">Contratar</button>
+                            <button onclick="descartar(${candidato.id})">Descartar</button>
+                        </td>
+                    ;
+                    tabelaBody.appendChild(row);
+                });
+            } catch (error) {
+                console.error('Erro ao carregar candidatos:', error);
+            }
+        }
+
+        async function contratar(id) {
+            await atualizarStatusCandidato(id, 'contratado');
+        }
+
+        async function descartar(id) {
+            await atualizarStatusCandidato(id, 'descartado');
+        }
+
+        async function atualizarStatusCandidato(id, status) {
+            try {
+                const response = await fetch(http://localhost:3001/api/candidatos/${id}/status, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ status })
+                });
+                if (response.ok) {
+                    alert(Candidato ${status} com sucesso!);
+                    carregarCandidatos();
+                } else {
+                    alert('Erro ao atualizar status do candidato');
+                }
+            } catch (error) {
+                console.error('Erro ao atualizar status do candidato:', error);
+            }
+        }
+
+  
+        carregarCandidatos();
+    </script>
+</body>
+</html>
+
