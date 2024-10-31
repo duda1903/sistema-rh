@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Empregado</title>
+</head>
+<body>
+    <h1>Cadastro de Empregado</h1>
+    
+    <form id="empregadoForm">
+        <label for="nome">Nome:</label>
+        <input type="text" id="nome" name="nome" required><br><br>
+
+        <label for="cargo">Cargo:</label>
+        <input type="text" id="cargo" name="cargo" required><br><br>
+
+        <label for="data_admissao">Data de Admissão:</label>
+        <input type="date" id="data_admissao" name="data_admissao" required><br><br>
+
+        <button type="submit">Cadastrar Empregado</button>
+    </form>
+
+    <p id="mensagem"></p>
+
+    <script>
+        document.getElementById('empregadoForm').addEventListener('submit', async function(event) {
+            event.preventDefault(); 
+           
+            const nome = document.getElementById('nome').value;
+            const cargo = document.getElementById('cargo').value;
+            const data_admissao = document.getElementById('data_admissao').value;
+
+            try {
+               
+                const response = await fetch('http://localhost:3001/api/empregados', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ nome, cargo, data_admissao })
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    document.getElementById('mensagem').textContent = 'Empregado cadastrado com sucesso: ' + JSON.stringify(data);
+                } else {
+                    document.getElementById('mensagem').textContent = 'Erro ao cadastrar empregado';
+                    console.error('Erro ao cadastrar empregado:', response.statusText);
+                }
+            } catch (error) {
+                console.error('Erro ao enviar dados:', error);
+                document.getElementById('mensagem').textContent = 'Erro ao conectar com o servidor';
+            }
+        });
+    </script>
+</body>
+</html>

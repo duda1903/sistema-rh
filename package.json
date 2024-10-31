@@ -1,14 +1,20 @@
 {
-  "name": "api-sistema-rh",
+  "name": "meu-projeto",
   "version": "1.0.0",
-  "description": "api para o sistema de gerenciamento de rh",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "",
-  "license": "ISC",
   "dependencies": {
-    "express": "4.19.1"
+    "axios": "^1.7.7",
+    "cors": "^2.8.5",
+    "express": "^4.21.1",
+    "mysql2": "^3.11.3",
+    "react-router-dom": "^6.27.0"
+  },
+  "scripts": {
+    "start": "concurrently \"npm run server\" \"npm run client\"",
+    "server": "node index.js",
+    "client": "cd front-end && npm start"
+  },
+  "devDependencies": {
+    "concurrently": "^7.6.0",
+    "cross-env": "^7.0.3"
   }
 }

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Criar Equipe</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #FFFDD0; 
+        }
+
+        /* Barra de navegação */
+        .nav {
+            background-color: #6D3F07;
+            width: 100%;
+        }
+
+        /* Estilo do botão */
+        .btn-primary {
+            background-color: #6D3F07; 
+            border-color: #6D3F07;
+        }
+
+        /* Logo */
+        .logo {
+            margin-left: 103%;
+            width: 30%;
+            margin-bottom: -55%;
+        }
+    </style>
+    <script defer src="script.js"></script>
+</head>
+<body>
+    <!-- Barra de navegação -->
+    <ul class="nav justify-content-center">
+        <li class="nav-item">
+          <a class="nav-link text-white" href="#">Inicio</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white" href="#">Perfil</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white" href="avaliacaoMembro.html">Avaliação</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-white" href="#">Criar equipes</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-white" href="addMembros.html">Adicionar membros à equipe</a>
+        </li>
+    </ul>
+
+    <div class="container mt-5">
+        <h2>Criar Equipe</h2>
+        <form id="formEquipe">
+            <div class="form-group">
+                <label for="nomeEquipe">Nome da Equipe</label>
+                <input type="text" class="form-control" id="nomeEquipe" required>
+            </div>
+            <div class="form-group">
+                <label for="lider_id">ID do Líder</label>
+                <input type="number" class="form-control" id="lider_id" required>
+            </div>
+            <div class="form-group">
+                <label for="nomeLider">Nome do Líder</label>
+                <input type="text" class="form-control" id="nomeLider" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Criar Equipe</button>
+        </form>
+        <div id="resultado" class="mt-3"></div>
+
+        <!-- Logo -->
+        <img src="../../img/logoS.png" alt="" class="logo">
+    </div>
+
+    <script>
+        document.getElementById('formEquipe').addEventListener('submit', async function(event) {
+            event.preventDefault();
+
+            const nomeEquipe = document.getElementById('nomeEquipe').value;
+            const lider_id = document.getElementById('lider_id').value;
+            const nomeLider = document.getElementById('nomeLider').value;
+
+            const equipeData = {
+                nomeEquipe,
+                lider_id,
+                nomeLider
+            };
+
+            try {
+                const response = await fetch('http://localhost:3001/api/equipes', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(equipeData),
+                });
+
+                if (!response.ok) {
+                    const errorText = await response.text();
+                    throw new Error(errorText);
+                }
+
+                const novaEquipe = await response.json();
+                document.getElementById('resultado').innerHTML = `<div class="alert alert-success">Equipe criada com sucesso! ID: ${novaEquipe.id}</div>`;
+                document.getElementById('formEquipe').reset(); // Limpar o formulário
+            } catch (error) {
+                document.getElementById('resultado').innerHTML = `<div class="alert alert-danger">${error.message}</div>`;
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,70 @@
+body {
+    background-color: #f5f5dc; /* Cor de fundo da página */
+}
+
+.navbar {
+    background-color: #8b4513; /* Cor do menu superior */
+}
+
+.navbar a {
+    color: white;
+}
+
+.container-form {
+    max-width: 600px;
+    margin: auto;
+    padding: 20px;
+    background-color: #faf3db;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-top: 50px;
+}
+
+.btn-salvar {
+    background-color: #8b4513;
+    color: white;
+    border: none;
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+}
+
+.btn-salvar:hover {
+    background-color: #6b3a10;
+}
+
+.calendar {
+    margin: 20px 0;
+}
+
+.footer-logo {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    width: 80px;
+}
+
+.container-evaluation {
+    max-width: 700px;
+    margin: auto;
+    padding: 20px;
+    background-color: #faf3db;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-top: 50px;
+}
+
+.btn-evaluation {
+    background-color: #8b4513;
+    color: white;
+    border: none;
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+}
+
+.btn-evaluation:hover {
+    background-color: #6b3a10;
+}
