@@ -1,4 +1,2 @@
 
-
-DELETE FROM empregados WHERE id = 7;
-
+show databases;

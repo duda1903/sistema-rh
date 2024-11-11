@@ -1,1 +1,45 @@
  
+.nav-custom {
+    background-color: #6D3F07;
+    color: white;
+    padding: 0.25rem 1rem;
+    position: fixed;
+    top: 0;
+    z-index: 1000;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-link-custom {
+    color: white;
+}
+
+.nav-link-custom:hover {
+    color: #D4A373;
+}
+
+.btn-custom {
+    background-color: #6D3F07;
+    color: white;
+    border: none;
+}
+
+.btn-custom:hover {
+    background-color: white;
+}
+
+.company-name {
+    color: white;
+    font-weight: bold;
+    padding-left: 1rem;
+    flex: 1;
+}
+
+.Nav-Table{
+    color: white;
+    font-weight: bold;
+    padding-left: 1rem;
+    flex: 1;
+}

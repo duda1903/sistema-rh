@@ -15,6 +15,7 @@ app.get('/api/candidatos', async (req, res) => {
         res.status(500).send('Erro ao buscar candidatos');
     }
 });
+
 app.get('/api/empregados', async (req, res) => {
     try {
         const [rows] = await pool.query('SELECT * FROM empregados');
@@ -25,19 +26,44 @@ app.get('/api/empregados', async (req, res) => {
     }
 });
 
+app.post('/api/candidatos/:id/status', async (req, res) => {
+    const { id } = req.params;
+    const { status } = req.body;
 
-app.post('/api/empregados', async (req, res) => {
-    const { nome, cargo, data_admissao } = req.body;
     try {
-        const [result] = await pool.execute(
-            'INSERT INTO empregados (nome, cargo, data_admissao) VALUES (?, ?, ?)',
-            [nome, cargo, data_admissao]
-        );
-        const novoEmpregado = { id: result.insertId, nome, cargo, data_admissao };
-        res.status(201).send(novoEmpregado);
+        const [candidato] = await pool.query('SELECT * FROM candidato WHERE id = ?', [id]);
+        if (candidato.length === 0) {
+            return res.status(404).send('Candidato não encontrado');
+        }
+
+        const {
+            nome, cargo, data_nascimento, observacao,
+            experiencias, escolaridade, cpf, email
+        } = candidato[0];
+
+        if (status === 'contratado') {
+            await pool.execute(
+                `INSERT INTO empregados (
+                    nome, cargo, data_nascimento, observacao, experiencias,
+                    escolaridade, cpf, email, data_admissao
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+                [
+                    nome, cargo, data_nascimento, observacao, experiencias,
+                    escolaridade, cpf, email, new Date()
+                ]
+            );
+
+            await pool.query('DELETE FROM candidato WHERE id = ?', [id]);
+            res.status(200).send('Candidato contratado e movido para empregados');
+        } else if (status === 'descartado') {
+            await pool.query('DELETE FROM candidato WHERE id = ?', [id]);
+            res.status(200).send('Candidato descartado e removido');
+        } else {
+            res.status(400).send('Status inválido');
+        }
     } catch (error) {
-        console.error('Erro ao inserir empregado:', error);
-        res.status(500).send('Erro ao inserir empregado');
+        console.error('Erro ao atualizar status do candidato:', error);
+        res.status(500).send('Erro ao atualizar status do candidato');
     }
 });
 
