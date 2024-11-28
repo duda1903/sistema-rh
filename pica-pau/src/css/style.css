@@ -1,0 +1,139 @@
+body{
+    background-color: #FFFDD0;
+}
+
+.container {
+    display: flex;
+    justify-content: space-between; /* Adiciona espaçamento entre os itens */
+    align-items: center; /* Alinha os itens verticalmente */
+    padding: 20px;
+}
+
+.welcome-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-bottom-right-radius: 20%;
+    flex: 1;
+    margin-top: -18%;
+    margin-left: -23.5%;
+    margin-right: 20px;
+    background-color: #6D3F07;
+    color: #ffffff;
+    min-height: 80vh;
+    min-width: 40vw;
+    text-align: center;
+}
+
+
+h1{
+    margin-top: -20%;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+.options {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end; /* Alinha os elementos à direita */
+    text-align: right;
+    padding-right: 20px; /* Adiciona espaçamento à direita */
+}
+
+button {
+    display: block;
+    padding: 15px 30px;
+    cursor: pointer;
+    width: 100%; /* Largura total no container */
+    max-width: 250px; /* Largura máxima dos botões */
+    background-color: #6D3F07; /* Mesma cor da div .welcome-text */
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    text-align: center;
+    margin: 10px 0; /* Espaçamento entre os botões */
+}
+
+h2{
+    margin-left: 30%;
+}
+
+
+#logo{
+    margin-top: 30%;
+    margin-left: -50%;
+}
+
+/*avaliação membro*/
+.navbar {
+    background-color: #6D3F07; /* Cor do menu superior */
+}
+
+.navbar a {
+    color: white;
+}
+
+.container-form {
+    max-width: 600px;
+    margin: auto;
+    padding: 20px;
+    background-color: #faf3db;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-top: 50px;
+}
+
+.btn-salvar {
+    background-color: #6D3F07;
+    color: white;
+    border: none;
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+}
+
+.btn-salvar:hover {
+    background-color: #6D3F07;
+}
+
+.calendar {
+    margin: 20px 0;
+}
+
+.footer-logo {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    width: 80px;
+}
+
+.container-evaluation {
+    max-width: 700px;
+    margin: auto;
+    padding: 20px;
+    background-color: #faf3db;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-top: 50px;
+}
+
+.btn-evaluation {
+    background-color: #6D3F07;
+    color: white;
+    border: none;
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+}
+
+.btn-evaluation:hover {
+    background-color: #6D3F07;
+}
