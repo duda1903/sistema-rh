@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pica-Pau curriculos</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bona+Nova+SC:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+</head>
+<body>
+    <ul class="nav justify-content-center">
+        <li class="nav-item">
+          <a class="nav-link text-white" href="#">Inicio</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white" href="#">Perfil</a>
+        </li>
+    </ul>
+
+    <div class="container mt-5">
+        <h2 class="text-center">Formulário de Candidatura</h2>
+        <form id="candidatoForm">
+            <div class="mb-3">
+                <label for="nome" class="form-label">Nome</label>
+                <input type="text" class="form-control" id="nome" required>
+            </div>
+            <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" class="form-control" id="email" required>
+            </div>
+            <div class="mb-3">
+                <label for="dataNascimento" class="form-label">Data de Nascimento</label>
+                <input type="date" class="form-control" id="dataNascimento" required>
+            </div>
+            <div class="mb-3">
+                <label for="cpf" class="form-label">CPF</label>
+                <input type="text" class="form-control" id="cpf" required>
+            </div>
+            <div class="mb-3">
+                <label for="escolaridade" class="form-label">Escolaridade</label>
+                <select class="form-select" id="escolaridade" required>
+                    <option value="">Selecione</option>
+                    <option value="fundamental">Fundamental</option>
+                    <option value="medio">Médio</option>
+                    <option value="superior">Superior</option>
+                    <option value="pos">Pós-graduação</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="cargo" class="form-label">Cargo Desejado</label>
+                <input type="text" class="form-control" id="cargo" required>
+            </div>
+            <div class="mb-3">
+                <label for="experiencias" class="form-label">Experiências</label>
+                <textarea class="form-control" id="experiencias" rows="3" required></textarea>
+            </div>
+            <div class="mb-3">
+                <label for="observacao" class="form-label">Observação</label>
+                <textarea class="form-control" id="observacao" rows="3"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Enviar</button>
+        </form>
+    </div>
+
+    <h1>Candidatos para vaga</h1>
+    <table id="tabelaCandidatos" class="mt-5">
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Cargo</th>
+                <th>Data de Nascimento</th>
+                <th>Observação</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
+    <script>
+        async function carregarCandidatos() {
+            try {
+                const response = await fetch('http://localhost:3001/api/candidatos');
+                if (!response.ok) throw new Error('Erro ao buscar candidatos');
+                const candidatos = await response.json();
+                const tabelaBody = document.querySelector('#tabelaCandidatos tbody');
+                tabelaBody.innerHTML = '';
+                candidatos.forEach(candidato => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${candidato.nome}</td>
+                        <td>${candidato.cargo}</td>
+                        <td>${candidato.data_nascimento}</td>
+                        <td>${candidato.observacao || 'Nenhuma observação disponível'}</td>
+                        <td>
+                            <button onclick="contratar(${candidato.id})">Contratar</button>
+                            <button onclick="descartar(${candidato.id})">Descartar</button>
+                        </td>
+                    `;
+                    tabelaBody.appendChild(row);
+                });
+            } catch (error) {
+                console.error('Erro ao carregar candidatos:', error);
+            }
+        }
+
+        async function contratar(id) {
+            await atualizarStatusCandidato(id, 'contratado');
+        }
+
+        async function descartar(id) {
+            await atualizarStatusCandidato(id, 'descartado');
+        }
+
+        async function atualizarStatusCandidato(id, status) {
+            try {
+                const response = await fetch(`http://localhost:3001/api/candidatos/${id}/status`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ status })
+                });
+                if (response.ok) {
+                    alert(`Candidato ${status} com sucesso!`);
+                    carregarCandidatos();
+                } else {
+                    alert('Erro ao atualizar status do candidato');
+                }
+            } catch (error) {
+                console.error('Erro ao atualizar status do candidato:', error);
+            }
+        }
+
+        document.getElementById('candidatoForm').addEventListener('submit', async function(event) {
+            event.preventDefault(); // Impede o envio padrão do formulário
+            
+            const nome = document.getElementById('nome').value;
+            const email = document.getElementById('email').value;
+            const dataNascimento = document.getElementById('dataNascimento').value;
+            const cpf = document.getElementById('cpf').value;
+            const escolaridade = document.getElementById('escolaridade').value;
+            const cargo = document.getElementById('cargo').value;
+            const experiencias = document.getElementById('experiencias').value;
+            const observacao = document.getElementById('observacao').value;
+
+            const candidatoData = {
+                nome,
+                email,
+                data_nascimento: dataNascimento,
+                cpf,
+                escolaridade,
+                cargo,
+                experiencias,
+                observacao
+            };
+
+            try {
+                const response = await fetch('http://localhost:3001/api/candidatos', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(candidatoData),
+                });
+
+                if (response.ok) {
+                    alert('Candidato enviado com sucesso!');
+                    document.getElementById('candidatoForm').reset();
+                    carregarCandidatos(); // Atualiza a tabela de candidatos
+                } else {
+                    alert('Erro ao enviar candidato');
+                }
+            } catch (error) {
+                console.error('Erro ao enviar candidato:', error);
+                alert('Erro ao enviar candidato');
+            }
+        });
+
+        carregarCandidatos(); // Carrega a lista de candidatos ao iniciar
+    </script>
+</body>
+</html>
