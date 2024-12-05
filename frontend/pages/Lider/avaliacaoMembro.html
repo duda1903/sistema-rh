@@ -8,12 +8,14 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
-            background-color: #FFFDD0;
+            background-color: #3e1d15;
             margin: 0;
+            font-family: 'Arial', sans-serif;
+            color: #f4e1d2;
         }
 
         .nav-custom {
-            background-color: #6D3F07;
+            background-color: #2b0c04;
             color: white;
             padding: 0.25rem 1rem;
             position: fixed;
@@ -23,6 +25,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            animation: slideDown 0.5s ease-out;
         }
 
         .nav-link-custom {
@@ -30,36 +33,72 @@
         }
 
         .nav-link-custom:hover {
-            color: #D4A373;
+            color: #d4a373;
+            transition: color 0.3s ease-in-out;
         }
 
         .btn-custom {
-            background-color: #6D3F07;
+            background-color: #2b0c04;
             color: white;
             border: none;
+            transition: background-color 0.3s ease-in-out;
         }
 
         .btn-custom:hover {
-            background-color: white;
+            background-color: #f4e1d2;
+            color: #2b0c04;
         }
 
-        .logo {
-            margin-left: 117%;
-            width: 17%;
-            margin-top: 11%;
+        .container-custom {
+            margin-top: 80px;
+            padding: 2rem;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            animation: fadeIn 1s ease-in;
         }
 
         .form-control {
             border-radius: 10px;
+            background-color: #4e2a1d;
+            color: #f4e1d2;
+            border: 1px solid #3e1d15;
+            transition: background-color 0.3s ease-in-out;
         }
 
+        .form-control:focus {
+            background-color: #6a3820;
+            border-color: #d4a373;
+        }
 
-        .company-name {
-            color: white;
-            font-weight: bold;
-            padding-left: 1rem;
-            flex: 1;
-           
+        .alert {
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-100%);
+            }
+            to {
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .container-custom {
+                padding: 1rem;
+            }
         }
     </style>
 </head>
@@ -68,15 +107,12 @@
     <div class="container-fluid px-0">
         <div class="w-100 nav-custom">
             <p class="company-name mb-0">Móveis Pica-pau</p>
-            <ul class="nav justify-content-center mb-0"> <!-- Removido mb-4 para evitar espaço desnecessário -->
+            <ul class="nav justify-content-center mb-0">
                 <li class="nav-item">
-                    <a class="nav-link nav-link-custom" href="#">Inicio</a>
+                    <a class="nav-link nav-link-custom" href="index.html">Inicio</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link nav-link-custom" href="#">Perfil</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link nav-link-custom" href="#">Avaliação</a>
+                    <a class="nav-link nav-link-custom" href="avaliacaoMembro.html">Avaliação</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link nav-link-custom" href="lider.html">Criar equipes</a>
@@ -88,10 +124,9 @@
         </div>
     </div>
 
-
-    <div class="container">
-        <h1 class="mt-5">Avaliação de Membros</h1>
-        <form id="avaliacaoForm" class="mt-4">
+    <div class="container container-custom">
+        <h1>Avaliação de Membros</h1>
+        <form id="avaliacaoForm">
             <div class="form-group">
                 <label for="membro_id">ID do Membro:</label>
                 <input type="number" class="form-control" id="membro_id" required>
@@ -112,11 +147,10 @@
                 <label for="colaboracao">Colaboração (0 a 5):</label>
                 <input type="number" class="form-control" id="colaboracao" min="0" max="5" required>
             </div>
-            <button type="submit" class="btn btn-custom">Enviar Avaliação</button>
+            <button type="submit" class="btn btn-custom btn-block">Enviar Avaliação</button>
         </form>
 
         <div id="resultado" class="mt-4"></div>
-        <img src="../../img/logoS.png" alt="" class="logo">
     </div>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
@@ -125,7 +159,7 @@
 
     <script>
         document.getElementById('avaliacaoForm').addEventListener('submit', async function (event) {
-            event.preventDefault(); // Impede o envio padrão do formulário
+            event.preventDefault();
 
             const membro_id = document.getElementById('membro_id').value;
             const assiduidade = document.getElementById('assiduidade').value;
@@ -142,7 +176,7 @@
             };
 
             try {
-                const response = await fetch('http://localhost:3001/api/avaliacoes', {
+                const response = await fetch('https://backrh.vercel.app/api/avaliacoes', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
